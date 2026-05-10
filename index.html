@@ -658,9 +658,9 @@
   </div>
   <div class="hero-badge">nieuw in Nederland</div>
   <h1>Kopen, leasen<br>of gewoon <em>lenen?</em></h1>
-  <p class="hero-sub">Stuurjij helpt je in 3 vragen ontdekken welke mobiliteitsoptie écht bij jou past. Eerlijk, onafhankelijk, gratis.</p>
+  <p class="hero-sub">Stuurjij helpt je in 4 vragen ontdekken welke mobiliteitsoptie écht bij jou past. Eerlijk, onafhankelijk, gratis.</p>
   <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('keuzehulp').scrollIntoView({behavior:'smooth'})">Doe de test — 3 vragen →</button>
+    <button class="btn-primary" onclick="document.getElementById('keuzehulp').scrollIntoView({behavior:'smooth'})">Doe de test — 4 vragen →</button>
     <button class="btn-secondary" onclick="document.getElementById('uitleg').scrollIntoView({behavior:'smooth'})">Meer lezen</button>
   </div>
   <div class="pills-row">
@@ -692,7 +692,7 @@
   <div style="text-align:center; max-width: 600px; margin: 0 auto 48px;">
     <div class="sectie-label">keuzehulp</div>
     <h2 class="sectie-titel">Wat past het beste<br>bij <em>jou?</em></h2>
-    <p class="sectie-sub" style="margin: 0 auto;">Beantwoord 3 eerlijke vragen en ontdek welke optie het beste bij jouw leven past.</p>
+    <p class="sectie-sub" style="margin: 0 auto;">Beantwoord 4 eerlijke vragen en ontdek welke optie het beste bij jouw leven past.</p>
   </div>
 
   <div class="quiz-wrap">
@@ -824,6 +824,43 @@
 <hr class="divider">
 
 <!-- FOOTER -->
+<hr class="divider">
+
+<section id="over" style="max-width: 1100px; margin: 0 auto; padding: 100px 24px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+    <div>
+      <div class="sectie-label">over stuurjij.</div>
+      <h2 class="sectie-titel">Eerlijk advies,<br>voor <em>iedereen</em></h2>
+      <p style="font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 24px;">Stuurjij. is ontstaan uit eigen frustratie. Toen Esther op zoek ging naar een auto, werd ze gek van het zoeken. Vijf verschillende websites, tientallen vergelijkingen, en nog steeds geen duidelijk antwoord op de simpelste vraag: wat past nu eigenlijk het beste bij mij?</p>
+      <p style="font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 24px;">Kopen, leasen, huren of een deelauto — iedereen heeft een mening, maar niemand geeft eerlijk en onafhankelijk advies. Dealers willen verkopen. Leasemaatschappijen willen contracten. En vergelijkingssites verdienen aan clicks.</p>
+      <p style="font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.8;">Of je nu 25 bent of 65, in de stad woont of daarbuiten, veel rijdt of af en toe — Stuurjij. helpt iedereen de juiste keuze te maken.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="background: rgba(250,199,117,0.08); border: 1px solid rgba(250,199,117,0.2); border-radius: 20px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+        <div style="font-size: 28px; flex-shrink: 0;">🎯</div>
+        <div>
+          <div style="font-family: Syne, sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">Geen verborgen agenda</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6;">Wij verkopen niets. Geen eigen producten, geen verborgen commissies. Alleen eerlijk advies.</div>
+        </div>
+      </div>
+      <div style="background: rgba(93,202,165,0.08); border: 1px solid rgba(93,202,165,0.2); border-radius: 20px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+        <div style="font-size: 28px; flex-shrink: 0;">🌍</div>
+        <div>
+          <div style="font-family: Syne, sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">Voor iedereen</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6;">Of je nu 25 bent of 65, in de stad of op het platteland — Stuurjij. helpt iedereen.</div>
+        </div>
+      </div>
+      <div style="background: rgba(175,169,236,0.08); border: 1px solid rgba(175,169,236,0.2); border-radius: 20px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+        <div style="font-size: 28px; flex-shrink: 0;">💡</div>
+        <div>
+          <div style="font-family: Syne, sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">Altijd gratis</div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6;">De keuzehulp, de kostenvergelijker, het advies — allemaal gratis. Altijd.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-logo">stuur<span>jij.</span></div>
   <p>mobiliteit op jouw manier — eerlijk, onafhankelijk, gratis</p>
@@ -890,7 +927,7 @@ document.getElementById('v4a').addEventListener('click', function() { kies(4,'v4
 document.getElementById('v4b').addEventListener('click', function() { kies(4,'v4b','wijk'); });
 document.getElementById('v4c').addEventListener('click', function() { kies(4,'v4c','buiten'); });
 document.getElementById('v4d').addEventListener('click', function() { kies(4,'v4d','anders'); });
-document.getElementById('btn4').addEventListener('click', function() { gaaNaar(6); });
+document.getElementById('btn4').addEventListener('click', function() { gaaNaar(5); });
 
 function toonResultaat() {
   var aanschaf = parseFloat(document.getElementById('aanschaf').value) || 12000;
@@ -970,7 +1007,7 @@ function toonResultaat() {
 
   document.getElementById('prog').style.width = '100%';
   document.getElementById('prog-tekst').textContent = 'jouw advies';
-  gaaNaar(5);
+  gaaNaar(6);
 }
 
 function herstart() {
