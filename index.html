@@ -978,7 +978,11 @@ function toonResultaat() {
 function herstart() {
   ant = {};
   document.querySelectorAll('.optie').forEach(function(o) { o.classList.remove('gekozen'); });
-  ['btn1','btn2','btn3'].forEach(function(id) { document.getElementById(id).disabled = true; });
+  document.getElementById('v4a').addEventListener('click', function() { kies(4,'v4a','centrum'); });
+document.getElementById('v4b').addEventListener('click', function() { kies(4,'v4b','wijk'); });
+document.getElementById('v4c').addEventListener('click', function() { kies(4,'v4c','buiten'); });
+document.getElementById('v4d').addEventListener('click', function() { kies(4,'v4d','anders'); });
+document.getElementById('btn4').addEventListener('click', function() { gaaNaar(5); });(function(id) { document.getElementById(id).disabled = true; });
   document.getElementById('aanschaf').value = '12000';
   document.getElementById('km').value = '15000';
   gaaNaar(1);
