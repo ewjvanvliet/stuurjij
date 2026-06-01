@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Woon-werk calculator: wat kost jouw reis echt? | Stuurjij.</title>
+  <meta name="description" content="Bereken wat jouw woon-werk traject kost per vervoersmiddel: eigen auto, lease, OV, fietslease en e-bike. Inclusief werkgeversvergoeding en mobiliteitsbudget.">
+  <meta property="og:title" content="Woon-werk calculator: wat kost jouw reis echt?">
+  <meta property="og:description" content="Bereken wat jouw woon-werk traject kost: eigen auto, lease, OV, fietslease en e-bike. Inclusief mobiliteitsbudget werkgever.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stuurjij.nl/woon-werk-calculator">
+  <link rel="canonical" href="https://stuurjij.nl/woon-werk-calculator">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --geel: #FAC775;
+      --geel-licht: rgba(250,199,117,0.12);
+      --geel-rand: rgba(250,199,117,0.25);
+      --donker: #0c0c0f;
+      --donker2: #16161c;
+      --donker3: #1e1e26;
+      --donker4: #26262f;
+      --tekst: #e8e8ec;
+      --subtekst: #8888a0;
+      --rand: #2a2a35;
+      --groen: #5DCAA5;
+      --rood: #F07070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--donker);
+      color: var(--tekst);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    header {
+      background: var(--donker2);
+      border-bottom: 1px solid var(--rand);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--geel);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    nav a {
+      color: var(--subtekst);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 24px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--geel); }
+
+    /* HERO */
+    .hero {
+      background: var(--donker2);
+      border-bottom: 1px solid var(--rand);
+      padding: 60px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(250,199,117,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 960px; margin: 0 auto; }
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--geel);
+      color: var(--donker);
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    h1 em {
+      color: var(--geel);
+      font-style: normal;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--subtekst);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* CALCULATOR GRID */
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .calc-grid { grid-template-columns: 1fr; }
+    }
+
+    /* INVOER PANEEL */
+    .invoer-paneel {
+      background: var(--donker2);
+      border: 1px solid var(--rand);
+      border-radius: 16px;
+      padding: 28px;
+      position: sticky;
+      top: 80px;
+    }
+    .paneel-titel {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--geel);
+      margin-bottom: 24px;
+    }
+
+    .veld { margin-bottom: 20px; }
+    .veld label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--subtekst);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .veld-rij {
+      display: flex;
+      align-items: center;
+      background: var(--donker3);
+      border: 1px solid var(--rand);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .veld-rij:focus-within {
+      border-color: var(--geel);
+    }
+    .veld-rij input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--tekst);
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 12px 16px;
+    }
+    .veld-rij input::placeholder { color: var(--rand); }
+    .veld-eenheid {
+      font-size: 12px;
+      color: var(--subtekst);
+      padding: 0 14px;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .slider-wrap { margin-top: 8px; }
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 4px;
+      background: var(--donker4);
+      border-radius: 2px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--geel);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--subtekst);
+      margin-top: 4px;
+    }
+
+    .bereken-btn {
+      width: 100%;
+      background: var(--geel);
+      color: var(--donker);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+      letter-spacing: 0.02em;
+    }
+    .bereken-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .bereken-btn:active { transform: translateY(0); }
+
+    .disclaimer-klein {
+      font-size: 11px;
+      color: var(--subtekst);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* RESULTATEN */
+    .resultaten-paneel { }
+
+    .resultaten-leeg {
+      background: var(--donker2);
+      border: 1px dashed var(--rand);
+      border-radius: 16px;
+      padding: 48px 28px;
+      text-align: center;
+      color: var(--subtekst);
+    }
+    .resultaten-leeg .icoon { font-size: 40px; margin-bottom: 12px; }
+    .resultaten-leeg p { font-size: 14px; }
+
+    .resultaat-kaart {
+      background: var(--donker2);
+      border: 1px solid var(--rand);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .resultaat-kaart:hover {
+      border-color: rgba(250,199,117,0.3);
+      transform: translateY(-2px);
+    }
+    .resultaat-kaart.beste {
+      border-color: var(--geel);
+      background: linear-gradient(135deg, var(--donker2) 0%, rgba(250,199,117,0.05) 100%);
+    }
+    .beste-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--geel);
+      color: var(--donker);
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 0 14px 0 10px;
+    }
+
+    .kaart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .kaart-naam {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .kaart-icoon {
+      width: 36px;
+      height: 36px;
+      background: var(--donker3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .kaart-titel {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+    }
+    .kaart-subtitel {
+      font-size: 12px;
+      color: var(--subtekst);
+    }
+    .kaart-netto {
+      text-align: right;
+    }
+    .netto-bedrag {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--geel);
+      line-height: 1;
+    }
+    .netto-label {
+      font-size: 11px;
+      color: var(--subtekst);
+      margin-top: 2px;
+    }
+
+    .kaart-balk {
+      height: 4px;
+      background: var(--donker4);
+      border-radius: 2px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .kaart-balk-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--geel);
+      transition: width 0.6s ease;
+    }
+
+    .kaart-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .detail-item {
+      background: var(--donker3);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .detail-label {
+      font-size: 10px;
+      color: var(--subtekst);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+    .detail-waarde {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--tekst);
+    }
+    .detail-waarde.positief { color: var(--groen); }
+    .detail-waarde.negatief { color: var(--rood); }
+
+    /* AFFILIATE BLOK */
+    .affiliate-blok {
+      background: var(--donker3);
+      border: 1px solid var(--geel-rand);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 20px;
+      display: none;
+    }
+    .affiliate-blok.zichtbaar { display: block; }
+    .affiliate-blok p {
+      font-size: 14px;
+      color: var(--subtekst);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+    .affiliate-blok strong { color: var(--tekst); }
+    .affiliate-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .affiliate-link {
+      display: inline-block;
+      background: var(--geel);
+      color: var(--donker);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .affiliate-link:hover { opacity: 0.85; }
+    .affiliate-link.secondary {
+      background: transparent;
+      border: 1px solid var(--geel-rand);
+      color: var(--geel);
+    }
+    .affiliate-disclaimer {
+      font-size: 11px;
+      color: var(--subtekst);
+      margin-top: 10px;
+    }
+
+    /* UITLEG */
+    .uitleg {
+      background: var(--donker2);
+      border: 1px solid var(--rand);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 48px;
+    }
+    .uitleg h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--geel);
+      margin-bottom: 16px;
+    }
+    .uitleg p {
+      font-size: 14px;
+      color: var(--subtekst);
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+    .uitleg p:last-child { margin-bottom: 0; }
+
+    /* INTERNE LINKS */
+    .interne-links {
+      background: var(--donker2);
+      border: 1px solid var(--rand);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+    .interne-links h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--geel);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .interne-links a {
+      display: block;
+      color: var(--tekst);
+      text-decoration: none;
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--rand);
+      transition: color 0.2s;
+    }
+    .interne-links a:last-child { border-bottom: none; }
+    .interne-links a:hover { color: var(--geel); }
+
+    footer {
+      background: var(--donker2);
+      border-top: 1px solid var(--rand);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--subtekst);
+    }
+    footer a { color: var(--subtekst); text-decoration: none; }
+    footer a:hover { color: var(--geel); }
+
+    /* ANIMATIES */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .resultaat-kaart { animation: fadeIn 0.3s ease forwards; }
+    .resultaat-kaart:nth-child(2) { animation-delay: 0.05s; }
+    .resultaat-kaart:nth-child(3) { animation-delay: 0.1s; }
+    .resultaat-kaart:nth-child(4) { animation-delay: 0.15s; }
+    .resultaat-kaart:nth-child(5) { animation-delay: 0.2s; }
+    .resultaat-kaart:nth-child(6) { animation-delay: 0.25s; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="/" class="logo">Stuurjij.</a>
+    <nav>
+      <a href="/keuzehulp">Keuzehulp</a>
+      <a href="/calculator">Calculator</a>
+      <a href="/stuurboord">Stuurboord</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <span class="label">🧮 Calculator</span>
+    <h1>Wat kost jouw woon-werk reis <em>echt</em>?</h1>
+    <p class="hero-sub">Vul je afstand en werkgeversvergoeding in. We berekenen direct wat je netto betaalt per vervoersmiddel - inclusief lease, OV, fietslease en e-bike.</p>
+  </div>
+</div>
+
+<main>
+  <div class="calc-grid">
+
+    <!-- INVOER -->
+    <div class="invoer-paneel">
+      <div class="paneel-titel">Jouw situatie</div>
+
+      <div class="veld">
+        <label>Afstand enkele reis</label>
+        <div class="veld-rij">
+          <input type="number" id="afstand" value="25" min="1" max="150" placeholder="25">
+          <span class="veld-eenheid">km enkele reis</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="afstand-slider" min="1" max="150" value="25">
+          <div class="slider-labels"><span>1 km</span><span>150 km</span></div>
+        </div>
+      </div>
+
+      <div class="veld">
+        <label>Dagen per week naar kantoor</label>
+        <div class="veld-rij">
+          <input type="number" id="dagen" value="4" min="1" max="5" placeholder="4">
+          <span class="veld-eenheid">dagen/week</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="dagen-slider" min="1" max="5" value="4">
+          <div class="slider-labels"><span>1 dag</span><span>5 dagen</span></div>
+        </div>
+      </div>
+
+      <div class="veld">
+        <label>Vergoeding werkgever</label>
+        <div class="veld-rij">
+          <input type="number" id="vergoeding" value="0.23" min="0" max="1" step="0.01" placeholder="0.23">
+          <span class="veld-eenheid">euro/km</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="vergoeding-slider" min="0" max="0.40" step="0.01" value="0.23">
+          <div class="slider-labels"><span>€0</span><span>€0,40/km</span></div>
+        </div>
+        <p style="font-size:11px;color:var(--subtekst);margin-top:6px;">Of vul een mobiliteitsbudget in:</p>
+        <div class="veld-rij" style="margin-top:6px;">
+          <input type="number" id="budget" value="0" min="0" max="1000" placeholder="0">
+          <span class="veld-eenheid">euro/maand budget</span>
+        </div>
+      </div>
+
+      <button class="bereken-btn" onclick="bereken()">Bereken mijn kosten →</button>
+      <p class="disclaimer-klein">Stuurjij. gebruikt vaste gemiddelden voor 2026. Jouw werkelijke kosten kunnen afwijken.</p>
+    </div>
+
+    <!-- RESULTATEN -->
+    <div class="resultaten-paneel">
+      <div class="resultaten-leeg" id="leeg-state">
+        <div class="icoon">🚗</div>
+        <p>Vul je gegevens in en klik op <strong>Bereken</strong> om te zien wat elke optie kost.</p>
+      </div>
+      <div id="resultaten-lijst"></div>
+      <div class="affiliate-blok" id="affiliate-blok">
+        <p><strong>Private lease past binnen jouw situatie.</strong> Vraag vrijblijvend een offerte aan en vergelijk wat verschillende aanbieders jou kunnen bieden.</p>
+        <!-- AFFILIATE LINKS HIER - Wittebrug Lease, IkRij.nl, Athlon -->
+        <div class="affiliate-links">
+          <a href="#" class="affiliate-link">Leaseofferte aanvragen →</a>
+          <a href="#" class="affiliate-link secondary">Meer over private lease</a>
+        </div>
+        <p class="affiliate-disclaimer">Stuurjij. ontvangt mogelijk een vergoeding als je via deze links een offerte aanvraagt. Dit heeft geen invloed op de berekening.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- UITLEG -->
+  <div class="uitleg">
+    <h2>Hoe berekent Stuurjij. dit?</h2>
+    <p>De calculator gebruikt vaste gemiddelden voor 2026. Voor de eigen auto: brandstofkosten op basis van gemiddeld verbruik (1 op 14, benzineprijs circa €2,05 per liter) plus een vaste maandelijkse bijdrage voor verzekering, wegenbelasting en onderhoud (gemiddeld €350 per maand voor een middenklasse auto).</p>
+    <p>Voor private lease wordt een all-in maandbedrag berekend op basis van de afstand: tot 15.000 km per jaar gemiddeld €450 per maand, daarboven hoger door extra kilometerkosten. Voor OV wordt het NS-tarief voor een 40-weekenkorting abonnement gebruikt (circa €0,21 per km daluren, €0,34 spitsuren) gemiddeld over een week.</p>
+    <p>Voor fietslease via werkgever wordt uitgegaan van een gemiddeld leasebedrag van €35 per maand voor een e-bike van €3.000. Voor een eigen e-bike wordt de aanschafprijs gedeeld over 5 jaar plus €15 onderhoud per maand.</p>
+    <p>De werkgeversvergoeding wordt afgetrokken van de brutokost om tot de netto eigen bijdrage te komen. Bij een mobiliteitsbudget wordt het volledige budget afgetrokken, ook als dat meer is dan de kosten van de goedkoopste optie.</p>
+  </div>
+
+  <div class="interne-links">
+    <h3>Meer lezen</h3>
+    <a href="/auto-abonnement-vs-lease">Auto-abonnement of private lease: wat past bij jou?</a>
+    <a href="/fietslease-via-werkgever-2026">Fietslease via werkgever 2026</a>
+    <a href="/mobiliteitsbudget-werknemer">Mobiliteitsbudget werknemer: wat kun je ermee?</a>
+    <a href="/ov-vs-auto-kosten-2026">OV vs auto: kosten eerlijk vergeleken</a>
+    <a href="/elektrische-fiets-of-auto-2026">Elektrische fiets of auto: wat past bij jou?</a>
+  </div>
+
+</main>
+
+<footer>
+  <p><a href="/">Stuurjij.</a> &bull; <a href="/over-stuurjij">Over ons</a> &bull; <a href="/disclaimer">Disclaimer</a> &bull; Onafhankelijk mobiliteitsadvies</p>
+</footer>
+
+<script>
+  // Sync sliders met invoervelden
+  function syncSlider(inputId, sliderId) {
+    const input = document.getElementById(inputId);
+    const slider = document.getElementById(sliderId);
+    input.addEventListener('input', () => slider.value = input.value);
+    slider.addEventListener('input', () => input.value = slider.value);
+  }
+  syncSlider('afstand', 'afstand-slider');
+  syncSlider('dagen', 'dagen-slider');
+  syncSlider('vergoeding', 'vergoeding-slider');
+
+  function bereken() {
+    const afstand = parseFloat(document.getElementById('afstand').value) || 25;
+    const dagen = parseInt(document.getElementById('dagen').value) || 4;
+    const vergKm = parseFloat(document.getElementById('vergoeding').value) || 0;
+    const budget = parseFloat(document.getElementById('budget').value) || 0;
+
+    // Berekeningen
+    const kmPerMaand = afstand * 2 * dagen * (52 / 12);
+    const kmPerJaar = afstand * 2 * dagen * 52;
+
+    // Werkgeversvergoeding per maand
+    const vergPerMaand = budget > 0 ? budget : (vergKm * kmPerMaand);
+
+    // === SCENARIO 1: EIGEN AUTO ===
+    const brandstofPerKm = 2.05 / 14; // €/km
+    const vasteKosten = 350; // verzekering + wegenbelasting + onderhoud
+    const eigenAutoBruto = (brandstofPerKm * kmPerMaand) + vasteKosten;
+    const eigenAutoNetto = Math.max(0, eigenAutoBruto - vergPerMaand);
+
+    // === SCENARIO 2: PRIVATE LEASE ===
+    let leaseBruto;
+    if (kmPerJaar <= 10000) leaseBruto = 400;
+    else if (kmPerJaar <= 15000) leaseBruto = 450;
+    else if (kmPerJaar <= 20000) leaseBruto = 500;
+    else if (kmPerJaar <= 25000) leaseBruto = 560;
+    else leaseBruto = 560 + ((kmPerJaar - 25000) / 1000) * 15;
+    const leaseNetto = Math.max(0, leaseBruto - vergPerMaand);
+
+    // === SCENARIO 3: OV ===
+    const ovTariefPerKm = 0.27; // gemiddeld dal/spits mix
+    const ovBruto = ovTariefPerKm * kmPerMaand;
+    const ovNetto = Math.max(0, ovBruto - vergPerMaand);
+
+    // === SCENARIO 4: FIETSLEASE via werkgever ===
+    // Alleen zinvol tot ~20 km enkele reis
+    const fietsleaseBruto = afstand <= 20 ? 35 : 55; // hogere e-bike bij grotere afstand
+    const fietsleaseNetto = Math.max(0, fietsleaseBruto - vergPerMaand);
+
+    // === SCENARIO 5: EIGEN E-BIKE ===
+    // Alleen zinvol tot ~25 km
+    const ebikeMaand = (3000 / (5 * 12)) + 15; // aanschaf gedeeld over 5 jaar + onderhoud
+    const ebikeNetto = Math.max(0, ebikeMaand - vergPerMaand);
+
+    // === SCENARIO 6: COMBINATIE OV + FIETS ===
+    const combiOV = ovTariefPerKm * kmPerMaand * 0.6; // 60% OV, rest fiets
+    const combiFiets = 10; // onderhoud fiets
+    const combiBruto = combiOV + combiFiets;
+    const combiNetto = Math.max(0, combiBruto - vergPerMaand);
+
+    const scenarios = [
+      {
+        naam: 'Eigen auto',
+        subtitel: 'Benzine, gemiddeld verbruik',
+        icoon: '🚗',
+        bruto: eigenAutoBruto,
+        vergoeding: Math.min(vergPerMaand, eigenAutoBruto),
+        netto: eigenAutoNetto,
+        toonAffiliate: false
+      },
+      {
+        naam: 'Private lease',
+        subtitel: 'All-in, inclusief verzekering',
+        icoon: '🔑',
+        bruto: leaseBruto,
+        vergoeding: Math.min(vergPerMaand, leaseBruto),
+        netto: leaseNetto,
+        toonAffiliate: true
+      },
+      {
+        naam: 'Openbaar vervoer',
+        subtitel: 'NS trein, gemiddeld tarief',
+        icoon: '🚆',
+        bruto: ovBruto,
+        vergoeding: Math.min(vergPerMaand, ovBruto),
+        netto: ovNetto,
+        toonAffiliate: false
+      },
+      {
+        naam: 'Fietslease werkgever',
+        subtitel: afstand <= 20 ? 'E-bike via werkgever' : 'E-bike via werkgever (grote afstand)',
+        icoon: '🚲',
+        bruto: fietsleaseBruto,
+        vergoeding: Math.min(vergPerMaand, fietsleaseBruto),
+        netto: fietsleaseNetto,
+        toonAffiliate: false
+      },
+      {
+        naam: 'Eigen e-bike',
+        subtitel: 'Aanschaf gedeeld over 5 jaar',
+        icoon: '⚡',
+        bruto: ebikeMaand,
+        vergoeding: Math.min(vergPerMaand, ebikeMaand),
+        netto: ebikeNetto,
+        toonAffiliate: false
+      },
+      {
+        naam: 'OV + fiets combinatie',
+        subtitel: '60% OV, rest op de fiets',
+        icoon: '🚆🚲',
+        bruto: combiBruto,
+        vergoeding: Math.min(vergPerMaand, combiBruto),
+        netto: combiNetto,
+        toonAffiliate: false
+      }
+    ];
+
+    // Sorteer op netto kosten
+    scenarios.sort((a, b) => a.netto - b.netto);
+    const maxNetto = Math.max(...scenarios.map(s => s.netto), 1);
+    const beste = scenarios[0];
+
+    // Render
+    document.getElementById('leeg-state').style.display = 'none';
+    const lijst = document.getElementById('resultaten-lijst');
+    lijst.innerHTML = '';
+
+    scenarios.forEach((s, i) => {
+      const isBeste = i === 0;
+      const breedte = maxNetto > 0 ? Math.max(5, (s.netto / maxNetto) * 100) : 5;
+      const vergSom = s.vergoeding > 0 ? `-€${Math.round(s.vergoeding)}` : '€0';
+
+      lijst.innerHTML += `
+        <div class="resultaat-kaart ${isBeste ? 'beste' : ''}">
+          ${isBeste ? '<div class="beste-badge">Voordeligst</div>' : ''}
+          <div class="kaart-header">
+            <div class="kaart-naam">
+              <div class="kaart-icoon">${s.icoon}</div>
+              <div>
+                <div class="kaart-titel">${s.naam}</div>
+                <div class="kaart-subtitel">${s.subtitel}</div>
+              </div>
+            </div>
+            <div class="kaart-netto">
+              <div class="netto-bedrag">€${Math.round(s.netto)}</div>
+              <div class="netto-label">netto/maand</div>
+            </div>
+          </div>
+          <div class="kaart-balk">
+            <div class="kaart-balk-fill" style="width:${breedte}%"></div>
+          </div>
+          <div class="kaart-detail">
+            <div class="detail-item">
+              <div class="detail-label">Brutokost</div>
+              <div class="detail-waarde">€${Math.round(s.bruto)}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Vergoeding</div>
+              <div class="detail-waarde ${s.vergoeding > 0 ? 'positief' : ''}">${vergSom}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Netto</div>
+              <div class="detail-waarde">€${Math.round(s.netto)}/mnd</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    // Toon affiliate blok als lease in top 2 staat
+    const leaseIndex = scenarios.findIndex(s => s.naam === 'Private lease');
+    const affiliateBlok = document.getElementById('affiliate-blok');
+    if (leaseIndex <= 1) {
+      affiliateBlok.classList.add('zichtbaar');
+    } else {
+      affiliateBlok.classList.remove('zichtbaar');
+    }
+
+    // Scroll naar resultaten op mobiel
+    if (window.innerWidth < 700) {
+      document.getElementById('resultaten-lijst').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Bereken direct bij laden met standaardwaarden
+  window.addEventListener('load', bereken);
+</script>
+
+</body>
+</html>
