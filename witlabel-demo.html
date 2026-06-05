@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobiliteitsbudget Calculator | Vanderlande HR</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blauw: #003087; --blauw-licht: #0050c8; --accent: #00c2a8;
+    --bg: #f4f6fb; --wit: #ffffff; --tekst: #1a1f36;
+    --subtekst: #6b7280; --border: #e5e9f2;
+    --shadow: 0 2px 16px rgba(0,48,135,0.10);
+    --groen: #00a86b; --oranje: #f59e0b; --rood: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--tekst); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+
+  header { background: var(--blauw); padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 12px rgba(0,48,135,0.2); }
+  .header-logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--blauw); }
+  .logo-naam { font-size: 18px; font-weight: 700; color: white; }
+  .logo-naam span { color: var(--accent); }
+  .header-nav { display: flex; gap: 28px; align-items: center; }
+  .header-nav a { color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; font-weight: 500; }
+  .header-nav a:hover { color: white; }
+  .header-nav .btn-nav { background: var(--accent); color: var(--blauw); padding: 8px 20px; border-radius: 6px; font-weight: 700; font-size: 13px; }
+
+  .subheader { background: white; border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+  .subheader-titel h1 { font-size: 22px; font-weight: 700; }
+  .subheader-titel p { font-size: 14px; color: var(--subtekst); margin-top: 4px; }
+  .powered-by { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--subtekst); background: var(--bg); border: 1px solid var(--border); padding: 8px 14px; border-radius: 20px; }
+  .powered-by strong { color: var(--tekst); }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .stappen { display: flex; margin-bottom: 32px; background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+  .stap { flex: 1; padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-right: 1px solid var(--border); font-size: 14px; font-weight: 500; color: var(--subtekst); }
+  .stap:last-child { border-right: none; }
+  .stap.actief { background: rgba(0,48,135,0.04); color: var(--blauw); }
+  .stap-nr { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--border); color: var(--subtekst); flex-shrink: 0; }
+  .stap.actief .stap-nr { background: var(--blauw); color: white; }
+
+  .grid { display: grid; grid-template-columns: 1fr 400px; gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .kaart { background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
+  .kaart-header { padding: 20px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .kaart-header-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,48,135,0.08); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .kaart-header h2 { font-size: 16px; font-weight: 700; }
+  .kaart-header p { font-size: 13px; color: var(--subtekst); margin-top: 2px; }
+  .kaart-body { padding: 28px; }
+
+  .veld-groep { margin-bottom: 18px; }
+  .veld-groep label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 7px; }
+  .veld-rij { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+  .veld-rij:focus-within { border-color: var(--blauw-licht); }
+  .veld-prefix { padding: 0 12px; font-size: 14px; font-weight: 600; color: var(--subtekst); background: var(--bg); border-right: 1px solid var(--border); height: 44px; display: flex; align-items: center; }
+  .veld-rij input, .veld-rij select { flex: 1; border: none; outline: none; padding: 11px 14px; font-size: 15px; font-weight: 500; color: var(--tekst); background: transparent; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  /* OV KWALITEIT */
+  .ov-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ov-optie { border: 2px solid var(--border); border-radius: 10px; padding: 12px 8px; cursor: pointer; transition: all 0.2s; text-align: center; background: white; }
+  .ov-optie:hover { border-color: var(--blauw-licht); }
+  .ov-optie.geselecteerd { border-color: var(--blauw); background: rgba(0,48,135,0.06); }
+  .ov-optie .ov-icon { font-size: 22px; margin-bottom: 6px; }
+  .ov-optie .ov-naam { font-size: 11px; font-weight: 700; color: var(--tekst); }
+  .ov-optie .ov-sub { font-size: 10px; color: var(--subtekst); margin-top: 2px; }
+  .ov-optie.geselecteerd .ov-naam { color: var(--blauw); }
+
+  .slider-wrap { margin-bottom: 18px; }
+  .slider-label-rij { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .slider-label-rij label { font-size: 13px; font-weight: 600; }
+  .slider-waarde { font-size: 15px; font-weight: 700; color: var(--blauw); background: rgba(0,48,135,0.08); padding: 4px 12px; border-radius: 20px; }
+  input[type="range"] { width: 100%; height: 5px; appearance: none; background: var(--border); border-radius: 3px; outline: none; cursor: pointer; }
+  input[type="range"]::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--blauw); border-radius: 50%; box-shadow: 0 2px 8px rgba(0,48,135,0.3); }
+  .slider-schaal { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtekst); margin-top: 6px; }
+
+  .restant-opties { margin-bottom: 20px; }
+  .restant-opties label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  .restant-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .restant-optie { border: 2px solid var(--border); border-radius: 10px; padding: 12px 10px; cursor: pointer; transition: all 0.2s; text-align: center; background: white; }
+  .restant-optie:hover { border-color: var(--blauw-licht); }
+  .restant-optie.geselecteerd { border-color: var(--blauw); background: rgba(0,48,135,0.06); }
+  .restant-optie .optie-icon { font-size: 20px; margin-bottom: 6px; }
+  .restant-optie .optie-naam { font-size: 11px; font-weight: 700; color: var(--tekst); }
+  .restant-optie .optie-sub { font-size: 10px; color: var(--subtekst); margin-top: 2px; }
+  .restant-optie.geselecteerd .optie-naam { color: var(--blauw); }
+
+  .btn-bereken { width: 100%; background: var(--blauw); color: white; border: none; border-radius: 8px; padding: 14px 24px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-bereken:hover { background: var(--blauw-licht); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,48,135,0.25); }
+
+  .resultaat-kaart { position: sticky; top: 24px; }
+  .resultaat-leeg { padding: 40px 28px; text-align: center; }
+  .resultaat-leeg .icon { font-size: 48px; margin-bottom: 16px; }
+  .resultaat-leeg p { font-size: 14px; color: var(--subtekst); line-height: 1.6; }
+
+  .resultaat-inhoud { display: none; }
+  .resultaat-inhoud.zichtbaar { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .score-groot { padding: 28px; background: linear-gradient(135deg, var(--blauw), var(--blauw-licht)); color: white; text-align: center; }
+  .score-groot .label { font-size: 12px; font-weight: 600; opacity: 0.8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .score-groot .optie-naam { font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+  .score-groot .kosten { font-size: 16px; opacity: 0.85; }
+  .score-groot .badge { display: inline-block; margin-top: 12px; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; }
+
+  .breakdown { padding: 20px 24px; }
+  .breakdown-rij { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .breakdown-rij:last-child { border-bottom: none; }
+  .breakdown-rij .naam { color: var(--subtekst); }
+  .breakdown-rij .waarde { font-weight: 700; }
+  .breakdown-rij.totaal .naam { font-weight: 700; font-size: 15px; }
+
+  .restant-resultaat { margin: 0 24px 16px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .restant-header { padding: 14px 18px; font-size: 13px; font-weight: 700; color: white; display: flex; align-items: center; gap: 8px; }
+  .restant-body { padding: 16px 18px; background: white; }
+  .restant-body .bedrag { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+  .restant-body .uitleg { font-size: 13px; color: var(--subtekst); line-height: 1.6; }
+
+  .advies-box { margin: 0 24px 16px; background: rgba(0,194,168,0.08); border: 1px solid rgba(0,194,168,0.25); border-radius: 10px; padding: 16px; }
+  .advies-box .advies-titel { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .advies-box p { font-size: 13px; color: var(--subtekst); line-height: 1.6; }
+
+  .btn-rapport { display: block; margin: 0 24px 24px; background: var(--accent); color: var(--blauw); border: none; border-radius: 8px; padding: 13px; font-size: 14px; font-weight: 700; text-align: center; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; }
+  .btn-rapport:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+  .info-banner { background: rgba(0,48,135,0.04); border: 1px solid rgba(0,48,135,0.12); border-radius: 10px; padding: 14px 18px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 20px; font-size: 13px; color: var(--subtekst); line-height: 1.6; }
+
+  .sectie-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--subtekst); margin-bottom: 12px; margin-top: 24px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  footer { background: white; border-top: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--subtekst); }
+  footer a { color: var(--subtekst); text-decoration: none; }
+  footer a:hover { color: var(--blauw); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">
+    <div class="logo-icon">V</div>
+    <div class="logo-naam">Vanderlande <span>HR</span></div>
+  </div>
+  <nav class="header-nav">
+    <a href="#">Mijn profiel</a>
+    <a href="#">Arbeidsvoorwaarden</a>
+    <a href="#">Mobiliteitsbeleid</a>
+    <a href="#" class="btn-nav">Aanvraag indienen</a>
+  </nav>
+</header>
+
+<div class="subheader">
+  <div class="subheader-titel">
+    <h1>Mobiliteitsbudget calculator</h1>
+    <p>Bereken wat jouw beste vervoerskeuze is op basis van jouw situatie en ons beleid</p>
+  </div>
+  <div class="powered-by">
+    <span>🔧</span>
+    <span>Onafhankelijke tool, aangeboden door <strong>Stuurjij.</strong></span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="stappen">
+    <div class="stap actief"><div class="stap-nr">1</div><div>Jouw situatie</div></div>
+    <div class="stap"><div class="stap-nr">2</div><div>Berekening</div></div>
+    <div class="stap"><div class="stap-nr">3</div><div>Advies</div></div>
+    <div class="stap"><div class="stap-nr">4</div><div>Aanvraag</div></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="kaart">
+        <div class="kaart-header">
+          <div class="kaart-header-icon">🏠</div>
+          <div>
+            <h2>Jouw woon-werksituatie</h2>
+            <p>Vul je gegevens in voor een persoonlijk advies</p>
+          </div>
+        </div>
+        <div class="kaart-body">
+
+          <div class="info-banner">
+            <span style="font-size:18px;flex-shrink:0">ℹ️</span>
+            <div>Vanderlande biedt een mobiliteitsbudget van <strong>€350 per maand</strong> voor medewerkers met een woon-werkafstand van meer dan 10 km.</div>
+          </div>
+
+          <div class="sectie-label">Woon-werk</div>
+
+          <div class="veld-groep">
+            <label>Woon-werkafstand (enkele reis)</label>
+            <div class="veld-rij">
+              <input type="number" id="afstand" value="32" min="1" max="200">
+              <div class="veld-prefix">km</div>
+            </div>
+          </div>
+
+          <div class="veld-groep">
+            <label>Aantal werkdagen per week op kantoor</label>
+            <div class="veld-rij">
+              <select id="werkdagen">
+                <option value="1">1 dag</option>
+                <option value="2">2 dagen</option>
+                <option value="3" selected>3 dagen</option>
+                <option value="4">4 dagen</option>
+                <option value="5">5 dagen</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sectie-label">Openbaar vervoer</div>
+
+          <div class="veld-groep">
+            <label>Hoe goed is het OV bij jou?</label>
+            <div class="ov-grid">
+              <div class="ov-optie" onclick="selecteerOV(this, 'goed')">
+                <div class="ov-icon">🚄</div>
+                <div class="ov-naam">Uitstekend</div>
+                <div class="ov-sub">Directe verbinding</div>
+              </div>
+              <div class="ov-optie geselecteerd" onclick="selecteerOV(this, 'redelijk')">
+                <div class="ov-icon">🚌</div>
+                <div class="ov-naam">Redelijk</div>
+                <div class="ov-sub">1-2 overstappen</div>
+              </div>
+              <div class="ov-optie" onclick="selecteerOV(this, 'slecht')">
+                <div class="ov-icon">🚫</div>
+                <div class="ov-naam">Slecht</div>
+                <div class="ov-sub">Nauwelijks OV</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sectie-label">Budget en voorkeur</div>
+
+          <div class="veld-groep">
+            <label>Voorkeur vervoersmiddel</label>
+            <div class="veld-rij">
+              <select id="voorkeur">
+                <option value="geen">Geen voorkeur - bereken beste optie</option>
+                <option value="auto">Eigen auto</option>
+                <option value="ov">Openbaar vervoer</option>
+                <option value="fiets">Fietslease</option>
+                <option value="lease">Private lease</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="slider-wrap">
+            <div class="slider-label-rij">
+              <label>Mobiliteitsbudget werkgever</label>
+              <span class="slider-waarde" id="budget-label">€350/mnd</span>
+            </div>
+            <input type="range" id="budget-slider" min="0" max="600" step="25" value="350" oninput="updateBudgetLabel()">
+            <div class="slider-schaal"><span>€0</span><span>€300/mnd</span><span>€600/mnd</span></div>
+          </div>
+
+          <div class="restant-opties">
+            <label>Wat doe jij met het resterende budget?</label>
+            <div class="restant-grid">
+              <div class="restant-optie geselecteerd" onclick="selecteerOptie(this, 'uitbetalen')">
+                <div class="optie-icon">💰</div>
+                <div class="optie-naam">Uitbetalen</div>
+                <div class="optie-sub">Als nettoloon</div>
+              </div>
+              <div class="restant-optie" onclick="selecteerOptie(this, 'verlof')">
+                <div class="optie-icon">🌴</div>
+                <div class="optie-naam">Extra verlof</div>
+                <div class="optie-sub">of pensioen</div>
+              </div>
+              <div class="restant-optie" onclick="selecteerOptie(this, 'sparen')">
+                <div class="optie-icon">🏦</div>
+                <div class="optie-naam">Sparen</div>
+                <div class="optie-sub">Volgende maand</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-bereken" onclick="bereken()">
+            <span>🔍</span> Bereken mijn mobiliteitsadvies
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTAAT -->
+    <div class="resultaat-kaart">
+      <div class="kaart">
+        <div class="resultaat-leeg" id="resultaat-leeg">
+          <div class="icon">📊</div>
+          <p>Vul je gegevens in en klik op Bereken voor een persoonlijk mobiliteitsadvies op basis van jouw situatie en het Vanderlande beleid.</p>
+        </div>
+
+        <div class="resultaat-inhoud" id="resultaat-inhoud">
+          <div class="score-groot">
+            <div class="label">Beste optie voor jou</div>
+            <div class="optie-naam" id="beste-optie-naam">OV</div>
+            <div class="kosten" id="beste-optie-kosten">€180/mnd</div>
+            <div class="badge" id="beste-optie-badge">✓ Past binnen je budget</div>
+          </div>
+
+          <div class="breakdown">
+            <div class="breakdown-rij"><span class="naam">Mobiliteitsbudget</span><span class="waarde" id="res-budget">--</span></div>
+            <div class="breakdown-rij"><span class="naam">Geschatte maandkosten</span><span class="waarde" id="res-kosten">--</span></div>
+            <div class="breakdown-rij"><span class="naam">Km per maand (werk)</span><span class="waarde" id="res-km">--</span></div>
+            <div class="breakdown-rij totaal"><span class="naam">Budget restant</span><span class="waarde" id="res-restant" style="font-size:16px">--</span></div>
+          </div>
+
+          <div class="restant-resultaat" id="restant-resultaat-box">
+            <div class="restant-header" id="restant-header">
+              <span id="restant-icon">💰</span>
+              <span id="restant-titel">Restant wordt uitbetaald</span>
+            </div>
+            <div class="restant-body">
+              <div class="bedrag" id="restant-bedrag">+€170/mnd</div>
+              <div class="uitleg" id="restant-uitleg">Dit bedrag wordt maandelijks netto aan je salaris toegevoegd.</div>
+            </div>
+          </div>
+
+          <div class="advies-box">
+            <div class="advies-titel">💡 Vanderlande advies</div>
+            <p id="advies-tekst"></p>
+          </div>
+
+          <button class="btn-rapport" onclick="alert('In de volledige versie kun je hier een aanvraag indienen bij HR.')">
+            📋 Dien aanvraag in bij HR
+          </button>
+        </div>
+      </div>
+
+      <div class="kaart" style="margin-top:16px;">
+        <div class="kaart-header">
+          <div class="kaart-header-icon">📋</div>
+          <div><h2>Vanderlande mobiliteitsbeleid</h2></div>
+        </div>
+        <div class="kaart-body" style="padding:20px 24px;">
+          <div class="breakdown-rij"><span class="naam">Budget per maand</span><span class="waarde" style="color:var(--blauw)">€350</span></div>
+          <div class="breakdown-rij"><span class="naam">Minimale afstand</span><span class="waarde">10 km</span></div>
+          <div class="breakdown-rij"><span class="naam">OV vergoed</span><span class="waarde" style="color:var(--accent)">100%</span></div>
+          <div class="breakdown-rij"><span class="naam">Eigen auto vergoeding</span><span class="waarde">€0,23/km</span></div>
+          <div class="breakdown-rij" style="border:none"><span class="naam">Fietslease mogelijk</span><span class="waarde" style="color:var(--accent)">Ja</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>© 2026 Vanderlande Industries &nbsp;|&nbsp; <a href="#">HR Portal</a> &nbsp;|&nbsp; <a href="#">Privacy</a></div>
+  <div>Onafhankelijke mobiliteitsberekening door <a href="https://stuurjij.nl" target="_blank">Stuurjij.</a> &nbsp;|&nbsp; Resultaten zijn indicatief</div>
+</footer>
+
+<script>
+let geselecteerdeOptie = 'uitbetalen';
+let ovKwaliteit = 'redelijk';
+
+function selecteerOV(el, kwaliteit) {
+  document.querySelectorAll('.ov-optie').forEach(o => o.classList.remove('geselecteerd'));
+  el.classList.add('geselecteerd');
+  ovKwaliteit = kwaliteit;
+}
+
+function selecteerOptie(el, optie) {
+  document.querySelectorAll('.restant-optie').forEach(o => o.classList.remove('geselecteerd'));
+  el.classList.add('geselecteerd');
+  geselecteerdeOptie = optie;
+}
+
+function updateBudgetLabel() {
+  document.getElementById('budget-label').textContent = '€' + document.getElementById('budget-slider').value + '/mnd';
+}
+
+function bereken() {
+  const afstand = parseInt(document.getElementById('afstand').value) || 32;
+  const werkdagen = parseInt(document.getElementById('werkdagen').value) || 3;
+  const budget = parseInt(document.getElementById('budget-slider').value) || 350;
+  const voorkeur = document.getElementById('voorkeur').value;
+  const kmPerMaand = Math.round(afstand * 2 * werkdagen * 4.33);
+
+  // OV factor op basis van kwaliteit
+  const ovFactor = ovKwaliteit === 'goed' ? 0.22 : ovKwaliteit === 'redelijk' ? 0.30 : null;
+
+  const opties = {
+    'Eigen auto': Math.round(kmPerMaand * 0.32),
+    'OV': ovFactor !== null ? Math.round(kmPerMaand * ovFactor) : null,
+    'Private lease': Math.round(kmPerMaand * 0.35 + 150),
+    'Fietslease': afstand <= 25 ? Math.round(kmPerMaand * 0.08 + 60) : null,
+  };
+
+  // Als OV slecht is, helemaal uitsluiten
+  if (ovKwaliteit === 'slecht') opties['OV'] = null;
+
+  let beste = null;
+  let besteKosten = 999999;
+  for (const [naam, kosten] of Object.entries(opties)) {
+    if (kosten !== null && kosten < besteKosten) { beste = naam; besteKosten = kosten; }
+  }
+
+  if (voorkeur !== 'geen') {
+    const map = { auto: 'Eigen auto', ov: 'OV', fiets: 'Fietslease', lease: 'Private lease' };
+    if (map[voorkeur] && opties[map[voorkeur]] !== null) { beste = map[voorkeur]; besteKosten = opties[beste]; }
+    else if (map[voorkeur] && opties[map[voorkeur]] === null) {
+      // OV gekozen maar niet beschikbaar
+      beste = 'Eigen auto'; besteKosten = opties['Eigen auto'];
+    }
+  }
+
+  const kosten = besteKosten;
+  const restant = budget - kosten;
+
+  document.getElementById('beste-optie-naam').textContent = beste;
+  document.getElementById('beste-optie-kosten').textContent = '€' + kosten + '/mnd geschatte kosten';
+  document.getElementById('beste-optie-badge').textContent = restant >= 0 ? '✓ Past binnen je budget' : '⚠ Lichte bijbetaling nodig';
+  document.getElementById('res-budget').textContent = '€' + budget + '/mnd';
+  document.getElementById('res-kosten').textContent = '€' + kosten + '/mnd';
+  document.getElementById('res-km').textContent = kmPerMaand.toLocaleString('nl-NL') + ' km';
+
+  const resEl = document.getElementById('res-restant');
+  resEl.textContent = (restant >= 0 ? '+' : '') + '€' + restant + '/mnd';
+  resEl.style.color = restant >= 0 ? 'var(--groen)' : 'var(--rood)';
+
+  // Restant scenario
+  const header = document.getElementById('restant-header');
+  const bedrag = document.getElementById('restant-bedrag');
+  const uitleg = document.getElementById('restant-uitleg');
+
+  if (restant < 0) {
+    header.style.background = 'var(--rood)';
+    document.getElementById('restant-icon').textContent = '⚠️';
+    document.getElementById('restant-titel').textContent = 'Bijbetaling nodig';
+    bedrag.textContent = '€' + Math.abs(restant) + '/mnd bijbetalen';
+    bedrag.style.color = 'var(--rood)';
+    uitleg.textContent = 'Je gekozen optie kost €' + Math.abs(restant) + ' meer dan je budget. Dit wordt maandelijks ingehouden op je salaris.';
+  } else if (geselecteerdeOptie === 'uitbetalen') {
+    header.style.background = 'var(--groen)';
+    document.getElementById('restant-icon').textContent = '💰';
+    document.getElementById('restant-titel').textContent = 'Restant wordt uitbetaald';
+    bedrag.textContent = '+€' + restant + '/mnd netto';
+    bedrag.style.color = 'var(--groen)';
+    uitleg.textContent = 'Het resterende budget van €' + restant + ' wordt maandelijks netto aan je salaris toegevoegd. Dat is €' + (restant * 12) + ' per jaar extra.';
+  } else if (geselecteerdeOptie === 'verlof') {
+    header.style.background = '#7c3aed';
+    document.getElementById('restant-icon').textContent = '🌴';
+    document.getElementById('restant-titel').textContent = 'Omgezet naar extra verlof';
+    const verlofDagen = (restant / (350 / 2.5)).toFixed(1);
+    bedrag.textContent = '+' + verlofDagen + ' dagen/jaar';
+    bedrag.style.color = '#7c3aed';
+    uitleg.textContent = 'Je €' + restant + ' restant per maand wordt omgezet naar extra verlof- of pensioendagen. Fiscaal voordelig omdat je brutoloon inzet.';
+  } else {
+    header.style.background = 'var(--oranje)';
+    document.getElementById('restant-icon').textContent = '🏦';
+    document.getElementById('restant-titel').textContent = 'Spaart op naar volgende maand';
+    bedrag.textContent = '+€' + restant + ' buffer';
+    bedrag.style.color = 'var(--oranje)';
+    uitleg.textContent = 'Je bouwt maandelijks €' + restant + ' op als mobiliteitsbudget reserve. Handig bij wisseling van vervoersmiddel.';
+  }
+
+  // Advies met OV-kwaliteit meegenomen
+  let advies = '';
+  if (beste === 'OV' && ovKwaliteit === 'goed') advies = 'OV is voor jou de beste keuze. Met een directe verbinding is het snel, goedkoop en ontspannen. Je budget dekt de kosten ruimschoots.';
+  else if (beste === 'OV' && ovKwaliteit === 'redelijk') advies = 'OV is financieel de beste keuze, maar houd rekening met reistijd door de overstappen. Vraag een OV-kaart aan via HR.';
+  else if (beste === 'Eigen auto') advies = ovKwaliteit === 'slecht' ? 'Gezien het beperkte OV-aanbod bij jou is de eigen auto de meest praktische keuze. Je ontvangt €0,23/km reiskostenvergoeding.' : 'De eigen auto is voor jou praktisch en betaalbaar. Declareer maandelijks via het HR-portaal.';
+  else if (beste === 'Fietslease') advies = 'Fietslease is voor jouw afstand een uitstekende keuze. Je profiteert van belastingvoordeel en houdt budget over.';
+  else advies = 'Private lease past goed bij jouw reisafstand. Neem contact op met HR voor beschikbare modellen.';
+  document.getElementById('advies-tekst').textContent = advies;
+
+  document.getElementById('resultaat-leeg').style.display = 'none';
+  document.getElementById('resultaat-inhoud').classList.add('zichtbaar');
+}
+</script>
+</body>
+</html>
