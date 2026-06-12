@@ -302,6 +302,96 @@
   }
   .btn-primary:hover { transform: scale(1.03); }
 
+  .samenvatting-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .samenvatting-titel {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--geel);
+    margin-bottom: 10px;
+  }
+  .samenvatting-box ul { list-style: none; margin: 0; }
+  .samenvatting-box li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    padding-left: 18px;
+    position: relative;
+  }
+  .samenvatting-box li::before { content: "—"; position: absolute; left: 0; color: var(--geel); }
+
+  .interactief-rekenblok {
+    background: var(--bg2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0 24px;
+  }
+  .interactief-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .interactief-label strong { color: var(--geel); font-family: 'Syne', sans-serif; font-size: 15px; }
+  .interactief-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.12);
+    outline: none;
+    margin: 8px 0 4px;
+  }
+  .interactief-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--geel);
+    cursor: pointer;
+  }
+  .interactief-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--geel);
+    border: none;
+    cursor: pointer;
+  }
+  .interactief-schaal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 14px;
+  }
+  .interactief-resultaat {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+  .interactief-resultaat .totaal-bedrag {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+  }
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 24px;
+  }
   .breadcrumb {
     font-size: 12px;
     color: rgba(255,255,255,0.3);
@@ -336,6 +426,15 @@
 
   <p class="artikel-intro">Private lease wordt vaak geadverteerd met aantrekkelijke "vanaf"-prijzen. Maar wat betaal je in de praktijk, en wat zit er wel en niet bij in dat maandbedrag? Drie rekenvoorbeelden, van klein tot elektrisch.</p>
 
+  <div class="samenvatting-box">
+    <div class="samenvatting-titel">In 1 oogopslag</div>
+    <ul>
+      <li>Het all-in leasebedrag dekt afschrijving, onderhoud, banden, wegenbelasting en verzekering</li>
+      <li>Brandstof of laadkosten komen er altijd los bovenop, afhankelijk van hoeveel je rijdt</li>
+      <li>Voor een middenklasser betaal je in de praktijk vaak €650-€770 per maand all-in</li>
+    </ul>
+  </div>
+
   <h2>Wat zit er normaal in het maandbedrag?</h2>
   <p>Het sterke punt van private lease is dat het maandbedrag "all-in" is -- je weet vooraf precies wat je kwijt bent, zonder verrassingen. Onderstaande kosten zitten bij vrijwel elke private lease aanbieder standaard inbegrepen:</p>
 
@@ -354,7 +453,20 @@
   </div>
 
   <h2>Rekenvoorbeeld 1: kleine auto (bijv. Volkswagen Polo-klasse)</h2>
-  <p>Een compacte auto, populair voor woon-werkverkeer en stadsgebruik. Uitgangspunt: 36 maanden, 10.000 km per jaar.</p>
+  <p>Een compacte auto, populair voor woon-werkverkeer en stadsgebruik. Uitgangspunt: 36 maanden, all-in leasebedrag €350-€425/mnd.</p>
+
+  <div class="interactief-rekenblok">
+    <div class="interactief-label">
+      <span>Jouw kilometers per maand</span>
+      <strong id="km-waarde">800 km</strong>
+    </div>
+    <input type="range" id="km-slider" class="interactief-slider" min="200" max="2000" step="50" value="800" oninput="updateRekenvoorbeeld1()">
+    <div class="interactief-schaal"><span>200 km</span><span>1.000 km</span><span>2.000 km</span></div>
+    <div class="interactief-resultaat">
+      Geschatte brandstofkosten (benzine, ca. €0,165/km): <strong id="brandstof-waarde">€132/mnd</strong><br>
+      Totaal incl. all-in leasebedrag (€350-€425): <span class="totaal-bedrag" id="totaal-waarde">€482 - €557/mnd</span>
+    </div>
+  </div>
 
   <table class="vergelijk-tabel">
     <tr>
@@ -375,8 +487,33 @@
     </tr>
   </table>
 
+  <script>
+  function updateRekenvoorbeeld1() {
+    const km = parseInt(document.getElementById('km-slider').value);
+    document.getElementById('km-waarde').textContent = km.toLocaleString('nl-NL') + ' km';
+    const brandstof = Math.round(km * 0.165);
+    document.getElementById('brandstof-waarde').textContent = '€' + brandstof + '/mnd';
+    const totaalLaag = 350 + brandstof;
+    const totaalHoog = 425 + brandstof;
+    document.getElementById('totaal-waarde').textContent = '€' + totaalLaag + ' - €' + totaalHoog + '/mnd';
+  }
+  </script>
+
   <h2>Rekenvoorbeeld 2: middenklasser (bijv. Volkswagen Golf-klasse)</h2>
-  <p>Een ruimere auto, geschikt voor gezinnen en langere ritten. Uitgangspunt: 36 maanden, 15.000 km per jaar.</p>
+  <p>Een ruimere auto, geschikt voor gezinnen en langere ritten. Uitgangspunt: 36 maanden, all-in leasebedrag €475-€575/mnd.</p>
+
+  <div class="interactief-rekenblok">
+    <div class="interactief-label">
+      <span>Jouw kilometers per maand</span>
+      <strong id="km-waarde-2">1.250 km</strong>
+    </div>
+    <input type="range" id="km-slider-2" class="interactief-slider" min="200" max="2500" step="50" value="1250" oninput="updateRekenvoorbeeld2()">
+    <div class="interactief-schaal"><span>200 km</span><span>1.250 km</span><span>2.500 km</span></div>
+    <div class="interactief-resultaat">
+      Geschatte brandstofkosten (benzine, ca. €0,156/km): <strong id="brandstof-waarde-2">€195/mnd</strong><br>
+      Totaal incl. all-in leasebedrag (€475-€575): <span class="totaal-bedrag" id="totaal-waarde-2">€670 - €770/mnd</span>
+    </div>
+  </div>
 
   <table class="vergelijk-tabel">
     <tr>
@@ -397,8 +534,33 @@
     </tr>
   </table>
 
+  <script>
+  function updateRekenvoorbeeld2() {
+    const km = parseInt(document.getElementById('km-slider-2').value);
+    document.getElementById('km-waarde-2').textContent = km.toLocaleString('nl-NL') + ' km';
+    const brandstof = Math.round(km * 0.156);
+    document.getElementById('brandstof-waarde-2').textContent = '€' + brandstof + '/mnd';
+    const totaalLaag = 475 + brandstof;
+    const totaalHoog = 575 + brandstof;
+    document.getElementById('totaal-waarde-2').textContent = '€' + totaalLaag + ' - €' + totaalHoog + '/mnd';
+  }
+  </script>
+
   <h2>Rekenvoorbeeld 3: elektrische auto (bijv. compacte EV)</h2>
-  <p>Een volledig elektrische auto in het compacte segment. Uitgangspunt: 36 maanden, 15.000 km per jaar, thuis laden.</p>
+  <p>Een volledig elektrische auto in het compacte segment. Uitgangspunt: 36 maanden, all-in leasebedrag €525-€650/mnd, thuis laden.</p>
+
+  <div class="interactief-rekenblok">
+    <div class="interactief-label">
+      <span>Jouw kilometers per maand</span>
+      <strong id="km-waarde-3">1.250 km</strong>
+    </div>
+    <input type="range" id="km-slider-3" class="interactief-slider" min="200" max="2500" step="50" value="1250" oninput="updateRekenvoorbeeld3()">
+    <div class="interactief-schaal"><span>200 km</span><span>1.250 km</span><span>2.500 km</span></div>
+    <div class="interactief-resultaat">
+      Geschatte laadkosten (thuis laden, ca. €0,06/km): <strong id="laad-waarde-3">€75/mnd</strong><br>
+      Totaal incl. all-in leasebedrag (€525-€650): <span class="totaal-bedrag" id="totaal-waarde-3">€600 - €725/mnd</span>
+    </div>
+  </div>
 
   <table class="vergelijk-tabel">
     <tr>
@@ -418,6 +580,18 @@
       <td class="bedrag">€ 575 - € 725</td>
     </tr>
   </table>
+
+  <script>
+  function updateRekenvoorbeeld3() {
+    const km = parseInt(document.getElementById('km-slider-3').value);
+    document.getElementById('km-waarde-3').textContent = km.toLocaleString('nl-NL') + ' km';
+    const laad = Math.round(km * 0.06);
+    document.getElementById('laad-waarde-3').textContent = '€' + laad + '/mnd';
+    const totaalLaag = 525 + laad;
+    const totaalHoog = 650 + laad;
+    document.getElementById('totaal-waarde-3').textContent = '€' + totaalLaag + ' - €' + totaalHoog + '/mnd';
+  }
+  </script>
 
   <div class="info-box paars">
     <div class="info-box-titel">🔌 Opvallend: EV vs benzine middenklasser</div>
