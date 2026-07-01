@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elektrisch rijden vs benzine: wat kost het echt per km? | Stuurjij.</title>
+  <meta name="description" content="Elektrisch rijden vs benzine: wat kost het echt per kilometer? Vergelijk laadkosten, brandstof, onderhoud en afschrijving eerlijk naast elkaar.">
+  <meta property="og:title" content="Elektrisch rijden vs benzine: wat kost het echt per km?">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stuurjij.nl/elektrisch-rijden-kosten-vergelijken.html">
+  <link rel="canonical" href="https://stuurjij.nl/elektrisch-rijden-kosten-vergelijken.html">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is elektrisch rijden goedkoper dan benzine?","acceptedAnswer":{"@type":"Answer","text":"Per kilometer zijn de energiekosten van een elektrische auto lager dan benzine, maar alleen als je thuis laadt. Wie afhankelijk is van publiek laden betaalt per kilometer ongeveer hetzelfde als een benzineauto. De totaalkosten hangen ook af van aanschafprijs en afschrijving."}},{"@type":"Question","name":"Wat kost elektrisch rijden per kilometer in 2026?","acceptedAnswer":{"@type":"Answer","text":"Thuis laden kost gemiddeld 3 tot 5 cent per kilometer. Publiek laden kost 8 tot 15 cent per kilometer. Snelladen onderweg kan oplopen tot 20 cent per kilometer."}},{"@type":"Question","name":"Wanneer is elektrisch rijden echt goedkoper?","acceptedAnswer":{"@type":"Answer","text":"Elektrisch wordt financieel aantrekkelijk als je meer dan 15.000 kilometer per jaar rijdt, thuis kunt laden en de auto minimaal 4 tot 5 jaar houdt."}}]}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --geel: #FAC775; --donker: #0f0f0f; --donker2: #1a1a1a; --donker3: #242424; --tekst: #e8e8e8; --subtekst: #a0a0a0; --rand: #2e2e2e; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--donker); color: var(--tekst); font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.8; }
+    header { background: var(--donker2); border-bottom: 1px solid var(--rand); padding: 20px 0; }
+    .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; color: var(--geel); text-decoration: none; }
+    nav a { color: var(--subtekst); text-decoration: none; font-size: 14px; margin-left: 24px; transition: color 0.2s; }
+    nav a:hover { color: var(--geel); }
+    .hero { background: var(--donker2); border-bottom: 1px solid var(--rand); padding: 56px 24px 48px; }
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+    .label { display: inline-block; background: var(--geel); color: var(--donker); font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; margin-bottom: 20px; }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 42px); font-weight: 800; line-height: 1.2; margin-bottom: 20px; color: #fff; }
+    .intro { font-size: 18px; color: var(--subtekst); max-width: 680px; line-height: 1.7; }
+    .meta { margin-top: 24px; font-size: 13px; color: var(--subtekst); }
+    main { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+    h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--geel); margin: 48px 0 16px; }
+    h3 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 600; color: #fff; margin: 28px 0 10px; }
+    p { margin-bottom: 18px; }
+    ul, ol { margin: 0 0 18px 20px; }
+    li { margin-bottom: 6px; }
+    .kader { background: var(--donker3); border-left: 3px solid var(--geel); border-radius: 6px; padding: 20px 24px; margin: 28px 0; }
+    .kader p { margin-bottom: 8px; }
+    .kader p:last-child { margin-bottom: 0; }
+    .tabel-wrap { overflow-x: auto; margin: 28px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th { background: var(--donker3); color: var(--geel); font-family: 'Syne', sans-serif; font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--rand); }
+    td { padding: 11px 16px; border-bottom: 1px solid var(--rand); color: var(--tekst); vertical-align: top; }
+    tr:hover td { background: rgba(250,199,117,0.04); }
+    .tip { background: rgba(250,199,117,0.07); border: 1px solid rgba(250,199,117,0.2); border-radius: 6px; padding: 18px 22px; margin: 28px 0; font-size: 15px; }
+    .tip strong { color: var(--geel); }
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    @media (max-width: 600px) { .scenario-grid { grid-template-columns: 1fr; } }
+    .scenario { background: var(--donker3); border: 1px solid var(--rand); border-radius: 8px; padding: 20px; }
+    .scenario h3 { margin-top: 0; font-size: 15px; color: var(--geel); }
+    .scenario p { font-size: 14px; color: var(--subtekst); margin-bottom: 0; }
+    .calculator-blok { background: linear-gradient(135deg, var(--donker3) 0%, rgba(250,199,117,0.05) 100%); border: 1px solid rgba(250,199,117,0.3); border-radius: 8px; padding: 28px; margin: 36px 0; text-align: center; }
+    .calculator-blok h3 { color: var(--geel); margin-top: 0; font-size: 18px; }
+    .calculator-blok p { color: var(--subtekst); font-size: 15px; margin-bottom: 16px; }
+    .calculator-blok a { display: inline-block; background: var(--geel); color: var(--donker); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: 6px; text-decoration: none; }
+    .disclaimer { font-size: 13px; color: var(--subtekst); border-top: 1px solid var(--rand); padding-top: 24px; margin-top: 48px; }
+    .interne-links { background: var(--donker2); border: 1px solid var(--rand); border-radius: 8px; padding: 24px; margin-top: 48px; }
+    .interne-links h3 { margin-top: 0; color: var(--geel); }
+    .interne-links a { display: block; color: var(--tekst); text-decoration: none; padding: 6px 0; font-size: 15px; border-bottom: 1px solid var(--rand); }
+    .interne-links a:last-child { border-bottom: none; }
+    .interne-links a:hover { color: var(--geel); }
+    footer { background: var(--donker2); border-top: 1px solid var(--rand); padding: 32px 24px; text-align: center; font-size: 13px; color: var(--subtekst); }
+    footer a { color: var(--subtekst); text-decoration: none; }
+    footer a:hover { color: var(--geel); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="/" class="logo">Stuurjij.</a>
+    <nav>
+      <a href="/#keuzehulp">Keuzehulp</a>
+      <a href="/#stuurhulp">Stuurhulp</a>
+      <a href="/artikelen.html">Artikelen</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <span class="label">Elektrisch rijden</span>
+    <h1>Elektrisch rijden vs benzine: wat kost het echt per kilometer?</h1>
+    <p class="intro">Elektrisch rijden klinkt goedkoper. Maar is het dat ook als je alles meetelt? We zetten laadkosten, brandstof, onderhoud en afschrijving eerlijk naast elkaar.</p>
+    <p class="meta">Bijgewerkt juni 2026 &bull; Leestijd: circa 7 minuten</p>
+  </div>
+</div>
+
+<main>
+
+  <p>De meeste vergelijkingen stoppen bij "stroom is goedkoper dan benzine." Dat klopt, maar het is maar een deel van het verhaal. De echte vraag is: wat kost mobiliteit per kilometer als je alles meerekent? Aanschaf, afschrijving, onderhoud, verzekering en energie samen.</p>
+
+  <h2>Energiekosten: alleen thuis laden is echt goedkoper</h2>
+
+  <p>Dit is het meest concrete verschil en het makkelijkste om te berekenen.</p>
+
+  <div class="tabel-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Laadtype</th>
+          <th>Kosten per kWh</th>
+          <th>Kosten per 100 km</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Thuis laden (normaal tarief)</td><td>&euro;0,23 - &euro;0,30</td><td>&euro;3,50 - &euro;5,00</td></tr>
+        <tr><td>Thuis laden (dal of zonnepanelen)</td><td>&euro;0,05 - &euro;0,15</td><td>&euro;0,75 - &euro;2,50</td></tr>
+        <tr><td>Publiek laden (AC)</td><td>&euro;0,35 - &euro;0,55</td><td>&euro;5,50 - &euro;9,00</td></tr>
+        <tr><td>Snelladen (DC)</td><td>&euro;0,55 - &euro;0,85</td><td>&euro;8,50 - &euro;14,00</td></tr>
+        <tr><td>Benzine (2026, 1:15)</td><td>n.v.t.</td><td>&euro;11,00 - &euro;14,00</td></tr>
+        <tr><td>Diesel (2026, 1:20)</td><td>n.v.t.</td><td>&euro;8,00 - &euro;10,00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="kader">
+    <p><strong>Conclusie:</strong> alleen wie thuis laadt, heeft een duidelijk voordeel op brandstofkosten. Wie voornamelijk publiek laadt, betaalt per kilometer ruwweg hetzelfde als een benzineauto, soms meer.</p>
+  </div>
+
+  <h2>De totaalkosten: wat kost een auto per jaar echt?</h2>
+
+  <p>We rekenen met een middenklasse auto, 15.000 kilometer per jaar, 5 jaar bezit.</p>
+
+  <div class="tabel-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Kostenpost</th>
+          <th>Elektrisch</th>
+          <th>Benzine</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Energie per jaar</td><td>&euro;450 - &euro;900 (thuis)</td><td>&euro;1.800 - &euro;2.400</td></tr>
+        <tr><td>Onderhoud per jaar</td><td>&euro;300 - &euro;500</td><td>&euro;600 - &euro;1.000</td></tr>
+        <tr><td>Motorrijtuigenbelasting</td><td>&euro;0 - &euro;100</td><td>&euro;400 - &euro;900</td></tr>
+        <tr><td>Verzekering</td><td>&euro;1.000 - &euro;1.800</td><td>&euro;700 - &euro;1.200</td></tr>
+        <tr><td>Afschrijving per jaar</td><td>&euro;4.000 - &euro;7.000</td><td>&euro;2.500 - &euro;4.500</td></tr>
+        <tr><td><strong>Totaal per jaar (schatting)</strong></td><td><strong>&euro;6.000 - &euro;10.000</strong></td><td><strong>&euro;6.000 - &euro;9.500</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip">
+    <strong>De afschrijving maakt het verschil:</strong> elektrische auto's schrijven nu nog sneller af dan benzineauto's. Dat maakt de totaalkosten dichter bij elkaar dan de meeste mensen denken. Wie een elektrische auto koopt en na 2 jaar doorverkoopt, verliest meer dan bij een benzineauto.
+  </div>
+
+  <h2>Onderhoud: elektrisch is goedkoper</h2>
+
+  <p>Een elektrische auto heeft minder bewegende delen. Dat vertaalt zich in lagere onderhoudskosten.</p>
+
+  <ul>
+    <li>Geen olieverversing nodig</li>
+    <li>Minder remsleet door remenergieterugwinning</li>
+    <li>Geen distributieriem, roetfilter of uitlaatsysteem</li>
+    <li>Wel gewoon: banden, APK, airco, ruitenwisservloeistof</li>
+  </ul>
+
+  <p>Gemiddeld bespaar je 300 tot 500 euro per jaar op onderhoud ten opzichte van een vergelijkbare benzineauto. Over 5 jaar is dat een voordeel van 1.500 tot 2.500 euro.</p>
+
+  <h2>Verzekering: elektrisch is duurder</h2>
+
+  <p>Verzekeraars rekenen hogere premies voor elektrische auto's. De voornaamste redenen zijn de hogere cataloguswaarde en de duurdere reparatiekosten, met name de accu. Reken op 20 tot 40 procent meer premie dan bij een vergelijkbare benzineauto.</p>
+
+  <h2>Voor wie is elektrisch echt goedkoper?</h2>
+
+  <div class="scenario-grid">
+    <div class="scenario">
+      <h3>Veel rijders met thuislader</h3>
+      <p>Meer dan 20.000 km per jaar, thuis laden, auto 5 jaar rijden. Hier is elektrisch op totaalkosten vrijwel altijd goedkoper.</p>
+    </div>
+    <div class="scenario">
+      <h3>Zakelijk gebruik</h3>
+      <p>Elektrisch lease heeft lage bijtelling, geen BPM en lage wegenbelasting. Fiscaal aantrekkelijk voor ZZP en werknemers.</p>
+    </div>
+    <div class="scenario">
+      <h3>Weinig kilometers, geen thuislader</h3>
+      <p>Minder dan 10.000 km per jaar en afhankelijk van publiek laden. Hier zijn de totaalkosten van benzine in de meeste gevallen lager.</p>
+    </div>
+    <div class="scenario">
+      <h3>Appartement, geen vaste laadplek</h3>
+      <p>Vrijwel volledig afhankelijk van publiek laden. Het kostenvoordeel van elektrisch valt hier grotendeels weg.</p>
+    </div>
+  </div>
+
+  <h2>Veelgestelde vragen</h2>
+
+  <h3>Heb ik een thuislader nodig voor elektrisch rijden?</h3>
+  <p>Niet verplicht, maar wel sterk aan te raden. Thuis laden is twee tot drie keer goedkoper dan publiek laden en veel praktischer. Installatie kost 600 tot 1.500 euro eenmalig.</p>
+
+  <h3>Wat zijn de verborgen kosten van een elektrische auto?</h3>
+  <p>Hogere aanschafprijs, snellere afschrijving, duurdere verzekering en de aanschaf van een thuislader. Hier tegenover staat: geen BPM, lage wegenbelasting, goedkoper onderhoud en lagere brandstofkosten bij thuisladen.</p>
+
+  <h3>Is tweedehands elektrisch slim?</h3>
+  <p>Steeds vaker wel. De aanschafprijs is lager, de rijkosten zijn gelijk. Punt van aandacht: controleer de accustatus. Een gesleten accu verhoogt je laadkosten significant.</p>
+
+  <div class="calculator-blok">
+    <h3>Wat kost jouw auto per kilometer?</h3>
+    <p>Vul je eigen situatie in bij de Stuurhulp calculator en zie direct wat elektrisch of benzine jou per maand kost.</p>
+    <a href="/#stuurhulp">Naar de Stuurhulp calculator &rarr;</a>
+  </div>
+
+  <div class="interne-links">
+    <h3>Meer lezen op Stuurjij.</h3>
+    <a href="/elektrische-auto-kopen-2026.html">Elektrische auto kopen in 2026: is het slim?</a>
+    <a href="/tweedehands-elektrische-auto-kopen.html">Tweedehands elektrische auto kopen</a>
+    <a href="/laadpaal-thuis-installeren.html">Laadpaal thuis installeren: kosten en subsidie</a>
+    <a href="/autokosten-per-km.html">Bereken jouw autokosten per kilometer</a>
+    <a href="/elektrisch-rijden-appartement-laden.html">Elektrisch rijden vanuit een appartement</a>
+  </div>
+
+  <p class="disclaimer">Stuurjij. is een onafhankelijk informatieplatform. Bedragen zijn indicaties op basis van publiek beschikbare marktdata 2025/2026 en kunnen per situatie afwijken. Dit artikel is geen financieel advies.</p>
+
+
+<div style="background:rgba(250,199,117,0.08);border:1px solid rgba(250,199,117,0.3);border-radius:12px;padding:20px;margin:32px 0;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FAC775;margin-bottom:8px;">Lease vergelijken</div><p style="color:rgba(255,255,255,0.8);font-size:14px;margin:0 0 12px;">Wil je weten wat private lease jou kost? Vergelijk aanbieders via onze partners:</p><p style="margin:0;font-size:14px;"><a href="https://lt45.net/c/?si=13144&li=1577821&wi=421252&ws=&dl=" target="_blank" rel="noopener sponsored" style="color:#FAC775;">IkRij.nl</a> &bull; <a href="https://lt45.net/c/?si=15724&li=1681173&wi=421252&ws=&dl=" target="_blank" rel="noopener sponsored" style="color:#FAC775;">Wittebrug Lease</a> &bull; <a href="https://jf79.net/c/?si=17016&li=1733590&wi=421252" target="_blank" rel="noopener sponsored" style="color:#FAC775;">Yourlease</a></p></div></main>
+
+<footer>
+  <p><a href="/">Stuurjij.</a> &bull; <a href="/over-stuurjij.html">Over ons</a> &bull; <a href="/disclaimer.html">Disclaimer</a> &bull; Onafhankelijk mobiliteitsadvies</p>
+</footer>
+
+</body>
+</html>
