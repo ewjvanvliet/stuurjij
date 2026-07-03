@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over de data | Stuurjij.</title>
+  <meta name="description" content="Hoe komt Stuurjij. aan zijn cijfers? Welke bronnen gebruiken we, hoe vaak updaten we, en wie controleert de data? Transparantie over onze werkwijze.">
+  <link rel="canonical" href="https://stuurjij.nl/over-de-data.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Over de data van Stuurjij.: bronnen, werkwijze en updates",
+    "description": "Hoe komt Stuurjij. aan zijn cijfers? Welke bronnen gebruiken we, hoe vaak updaten we, en wie controleert de data?",
+    "url": "https://stuurjij.nl/over-de-data.html",
+    "datePublished": "2026-06-08",
+    "dateModified": "2026-07-03",
+    "author": {
+      "@type": "Person",
+      "name": "Esther van Vliet",
+      "url": "https://stuurjij.nl/over-stuurjij.html"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Stuurjij.",
+      "url": "https://stuurjij.nl"
+    },
+    "inLanguage": "nl-NL",
+    "isAccessibleForFree": true,
+    "about": {
+      "@type": "Thing",
+      "name": "Data transparantie mobiliteitskosten Nederland"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Stuurjij. onafhankelijk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Stuurjij. wordt gemaakt door een individu, zonder investeerders of redactieteam van een automerk of verzekeraar. We werken met affiliatepartners voor inkomsten, maar dit heeft geen invloed op welke informatie we geven of hoe we die presenteren. Aanbieders kunnen niet betalen voor een hogere plek in vergelijkingen."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Welke bronnen gebruikt Stuurjij. voor zijn cijfers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stuurjij. gebruikt uitsluitend publieke, officiele of breed erkende bronnen: RDW voor kentekengegevens, de Belastingdienst voor fiscale tarieven zoals wegenbelasting en bijtelling, CBS voor brandstofprijzen en mobiliteitsstatistieken, ANWB voor kostenonderzoek per autoklasse, Nibud voor huishoudbudgetten, en overheid.nl/wetten.nl voor wet- en regelgeving."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hoe vaak wordt de informatie op Stuurjij. bijgewerkt?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dit verschilt per onderwerp. Wegenbelasting, bijtelling en leaseregels worden jaarlijks bijgewerkt in januari na publicatie van nieuwe tarieven. Brandstofprijzen en verzekeringspremies worden per kwartaal bijgewerkt op basis van CBS-publicaties en marktbewegingen. Affiliate links en aanbieders worden continu bijgewerkt. Elke pagina toont de laatste update-datum."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Geeft Stuurjij. persoonlijk financieel advies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nee. Stuurjij. beschrijft gemiddelde kosten en de geldende regels, maar geeft geen persoonlijk financieel of juridisch advies. Voor beslissingen die op de individuele situatie van een persoon zijn toegesneden, raadt Stuurjij. aan een onafhankelijk adviseur te raadplegen."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wie heeft Stuurjij. gemaakt?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stuurjij. is opgericht door Esther van Vliet, 52 jaar, zonder technische achtergrond. Het platform is gebouwd vanuit de wens om mobiliteitskosten in Nederland transparanter te maken voor gewone mensen, zonder verborgen agenda van automerken of verzekeraars."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #FAC775;
+      --gold-dim: rgba(250, 199, 117, 0.15);
+      --gold-border: rgba(250, 199, 117, 0.3);
+      --bg: #0f0f0f;
+      --bg-card: #161616;
+      --bg-card-hover: #1c1c1c;
+      --text: #e8e8e8;
+      --text-muted: #888;
+      --text-dim: #555;
+      --border: rgba(255,255,255,0.07);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      font-family: var(--font-body);
+    }
+
+    .breadcrumb a {
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover { color: var(--gold); }
+
+    .hero-label {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .hero-intro {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 620px;
+      border-left: 2px solid var(--gold-border);
+      padding-left: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .update-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 1.5rem;
+    }
+
+    .update-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 3.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 .icon {
+      margin-right: 0.5rem;
+      opacity: 0.8;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-vraag {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+
+    .faq-item p {
+      margin-bottom: 0;
+    }
+
+    /* BRONNEN GRID */
+    .bronnen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .bron-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .bron-card:hover {
+      border-color: var(--gold-border);
+      background: var(--bg-card-hover);
+    }
+
+    .bron-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .bron-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* WERKWIJZE STAPPEN */
+    .stappen {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .stap {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+    }
+
+    .stap-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--gold);
+      min-width: 28px;
+      line-height: 1.4;
+    }
+
+    .stap-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .stap-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* UPDATE TABEL */
+    .update-tabel {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.2rem;
+      font-size: 0.88rem;
+    }
+
+    .update-tabel th {
+      text-align: left;
+      padding: 0.7rem 1rem;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .update-tabel td {
+      padding: 0.8rem 1rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .update-tabel tr:last-child td { border-bottom: none; }
+
+    .update-tabel td:first-child {
+      color: var(--text);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .freq-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      font-family: var(--font-display);
+    }
+
+    .freq-jaar {
+      background: rgba(250,199,117,0.1);
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+    }
+
+    .freq-kwartaal {
+      background: rgba(100,180,255,0.08);
+      color: #7ab8f5;
+      border: 1px solid rgba(100,180,255,0.2);
+    }
+
+    .freq-continu {
+      background: rgba(100,220,100,0.08);
+      color: #7dca7d;
+      border: 1px solid rgba(100,220,100,0.2);
+    }
+
+    /* DISCLAIMER BOX */
+    .disclaimer {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .disclaimer p {
+      font-size: 0.88rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ESTHER BLOK */
+    .esther-blok {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      margin-top: 1.2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .esther-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 2px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .esther-text p {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .esther-text p:last-child { margin: 0; }
+
+    .esther-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: #fff !important;
+      font-size: 0.95rem !important;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.2rem 2rem; }
+      .content { padding: 0 1.2rem 4rem; }
+      .bronnen-grid { grid-template-columns: 1fr; }
+      .esther-blok { flex-direction: column; gap: 1rem; }
+      .update-tabel { font-size: 0.82rem; }
+      .update-tabel th, .update-tabel td { padding: 0.6rem 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://stuurjij.nl" class="nav-logo">Stuurjij.</a>
+    <ul class="nav-links">
+      <li><a href="https://stuurjij.nl/keuzehulp.html">Keuzehulp</a></li>
+      <li><a href="https://stuurjij.nl/stuurhulp.html">Stuurhulp</a></li>
+      <li><a href="https://stuurjij.nl/artikelen.html">Artikelen</a></li>
+      <li><a href="https://stuurjij.nl/over-stuurjij.html">Over Stuurjij.</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="breadcrumb">
+        <a href="https://stuurjij.nl">Stuurjij.</a> &rsaquo; Over de data
+      </div>
+      <div class="hero-label">Transparantie</div>
+      <h1>Waar komen onze <span>cijfers</span> vandaan?</h1>
+      <p class="hero-intro">
+        Stuurjij. geeft advies op basis van concrete getallen. Logisch dat je wilt weten waar die getallen vandaan komen, hoe actueel ze zijn en wie ze controleert. Op deze pagina leggen we dat uit.
+      </p>
+      <div class="update-badge">Pagina bijgewerkt: 3 juli 2026</div>
+    </div>
+
+    <div class="content">
+
+      <!-- BRONNEN -->
+      <div class="section">
+        <h2><span class="icon">📂</span>Onze bronnen</h2>
+        <p>We gebruiken uitsluitend publieke, officiële of breed erkende bronnen. Geen persbureaus van automerken, geen gesponsorde data.</p>
+
+        <div class="bronnen-grid">
+          <div class="bron-card">
+            <div class="bron-name">RDW</div>
+            <p class="bron-desc">Officieel kentekenregister. Gebruiken we voor voertuiggewicht, brandstoftype en wegenbelastingberekeningen.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">Belastingdienst</div>
+            <p class="bron-desc">Officiële tarieven voor wegenbelasting (MRB), bijtelling en fiscale regelingen rondom mobiliteitsbudget en lease.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">CBS</div>
+            <p class="bron-desc">Gewogen gemiddelde brandstofprijzen (benzine, diesel, LPG) en statistieken over mobiliteitsgedrag in Nederland.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">ANWB</div>
+            <p class="bron-desc">Kostenonderzoek per autoklasse, gemiddelde kosten per kilometer en verzekeringsoverzichten.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">Nibud</div>
+            <p class="bron-desc">Huishoudboekje-data voor realistische budgetvergelijkingen. Onafhankelijk en breed erkend.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">Overheid.nl / wetten.nl</div>
+            <p class="bron-desc">Wet- en regelgeving rondom rijbewijzen, verzekeringsplicht, mobiliteitsbudget en arbeidsrecht.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">NS / OV-chipkaart</div>
+            <p class="bron-desc">Actuele tarieven openbaar vervoer voor vergelijkingen met autogebruik en mobiliteitsbudget.</p>
+          </div>
+          <div class="bron-card">
+            <div class="bron-name">Verzekeraars (publiek)</div>
+            <p class="bron-desc">Publiek beschikbare premie-indicaties van vergelijkingssites. Geen contractuele relatie met individuele verzekeraars.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KERNCIJFERS 2026 -->
+      <div class="section">
+        <h2><span class="icon">📊</span>Kerncijfers mobiliteit Nederland 2026</h2>
+        <p>De concrete getallen die Stuurjij. gebruikt in berekeningen en artikelen. Bijgewerkt januari 2026 op basis van officiële bronnen.</p>
+
+        <table style="width:100%;border-collapse:collapse;margin-top:20px;font-size:15px;">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(250,199,117,0.3);">
+              <th style="text-align:left;padding:10px 12px;color:#FAC775;font-family:'Syne',sans-serif;">Gegeven</th>
+              <th style="text-align:left;padding:10px 12px;color:#FAC775;font-family:'Syne',sans-serif;">Waarde 2026</th>
+              <th style="text-align:left;padding:10px 12px;color:#FAC775;font-family:'Syne',sans-serif;">Bron</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Onbelaste kilometervergoeding</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;0,25 per km</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Inkomstenbelasting schijf 1 (tot ca. &euro;38.883)</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">36,97%</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Bijtelling elektrische auto 2026</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">16% (tot &euro;30.000 cataloguswaarde)</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Bijtelling benzine/diesel auto 2026</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">22%</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde brandstofkosten benzine per km</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;0,14 per km</td>
+              <td style="padding:10px 12px;color:#888;">CBS / ANWB 2025</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde kosten elektrisch rijden per km</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;0,04-0,06 per km</td>
+              <td style="padding:10px 12px;color:#888;">ANWB / marktgemiddelde 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddeld aantal kilometers per jaar (NL)</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">ca. 12.000 km</td>
+              <td style="padding:10px 12px;color:#888;">CBS Mobiliteitsonderzoek</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde wegenbelasting kleine benzineauto</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">ca. &euro;45 per maand</td>
+              <td style="padding:10px 12px;color:#888;">RDW / Belastingdienst 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Wegenbelasting volledig elektrische auto</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;0 (vrijstelling t/m 2029)</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Maximale fietsregeling werkgever</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;1.500 per 3 jaar belastingvrij</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">OV-vergoeding woon-werk</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">Volledig onbelast (geen maximum)</td>
+              <td style="padding:10px 12px;color:#888;">Belastingdienst 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde private lease prijs per maand 2026</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;550&ndash;&euro;750 per maand (all-in)</td>
+              <td style="padding:10px 12px;color:#888;">Marktgemiddelde 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddeld mobiliteitsbudget werkgever 2026</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;400&ndash;&euro;900 bruto per maand</td>
+              <td style="padding:10px 12px;color:#888;">Marktonderzoek / HR-benchmarks 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde occasion prijs Nederland 2026</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">ca. &euro;22.000 (alle segmenten)</td>
+              <td style="padding:10px 12px;color:#888;">CBS / RDW 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde laadpaalkosten thuis per kWh</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;0,22&ndash;&euro;0,28 per kWh</td>
+              <td style="padding:10px 12px;color:#888;">Energiemarkt NL 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde laadpaalkosten publiek per kWh</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">&euro;0,45&ndash;&euro;0,65 per kWh</td>
+              <td style="padding:10px 12px;color:#888;">Laadpaalmarkt NL 2026</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.07);">
+              <td style="padding:10px 12px;">Gemiddelde autoverzekering WA per jaar</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">ca. &euro;600&ndash;&euro;900 per jaar</td>
+              <td style="padding:10px 12px;color:#888;">Vergelijkingssites / ANWB 2026</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;">Gemiddelde APK-kosten</td>
+              <td style="padding:10px 12px;color:#FAC775;font-weight:600;">ca. &euro;40&ndash;&euro;80 per keuring</td>
+              <td style="padding:10px 12px;color:#888;">Marktgemiddelde garages 2026</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:13px;color:#888;margin-top:12px;">Tarieven worden jaarlijks bijgewerkt in januari. Raadpleeg altijd de Belastingdienst voor de meest actuele cijfers op jouw situatie.</p>
+      </div>
+
+      <!-- WERKWIJZE -->
+      <div class="section">
+        <h2><span class="icon">⚙️</span>Hoe werken we</h2>
+        <p>Zo komen cijfers van bron naar pagina:</p>
+
+        <div class="stappen">
+          <div class="stap">
+            <div class="stap-num">1</div>
+            <p class="stap-text"><strong>Raadplegen van de officiële bron.</strong> We gaan altijd terug naar de primaire bron, niet naar een artikel dat een artikel citeert.</p>
+          </div>
+          <div class="stap">
+            <div class="stap-num">2</div>
+            <p class="stap-text"><strong>Vertalen naar begrijpelijke taal.</strong> We maken geen samenvatting van juridisch jargon, maar leggen uit wat het voor gewone Nederlanders betekent.</p>
+          </div>
+          <div class="stap">
+            <div class="stap-num">3</div>
+            <p class="stap-text"><strong>Datum zichtbaar op de pagina.</strong> Elke pagina toont wanneer hij voor het laatst bijgewerkt is. Zo weet je altijd hoe actueel de informatie is.</p>
+          </div>
+          <div class="stap">
+            <div class="stap-num">4</div>
+            <p class="stap-text"><strong>Geen affiliate-invloed op inhoud.</strong> We werken met affiliatepartners voor inkomsten, maar die hebben geen invloed op welke informatie we geven of hoe we die presenteren.</p>
+          </div>
+          <div class="stap">
+            <div class="stap-num">5</div>
+            <p class="stap-text"><strong>Gemiddelden zijn altijd gemiddelden.</strong> We rekenen met realistische gemiddelden, niet met de mooiste of slechtste scenario's. Waar relevant geven we bandbreedtes.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATE FREQUENTIE -->
+      <div class="section">
+        <h2><span class="icon">🔄</span>Hoe vaak updaten we?</h2>
+        <p>Mobiliteitskosten veranderen elk jaar door nieuwe belastingtarieven, brandstofprijzen en wet- en regelgeving. Dit is ons updateschema:</p>
+
+        <table class="update-tabel">
+          <thead>
+            <tr>
+              <th>Onderwerp</th>
+              <th>Frequentie</th>
+              <th>Wanneer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wegenbelasting (MRB)</td>
+              <td><span class="freq-badge freq-jaar">Jaarlijks</span></td>
+              <td>Januari, na publicatie nieuwe tarieven</td>
+            </tr>
+            <tr>
+              <td>Bijtelling & leaseregels</td>
+              <td><span class="freq-badge freq-jaar">Jaarlijks</span></td>
+              <td>Januari, bij wijziging Belastingplan</td>
+            </tr>
+            <tr>
+              <td>Gemiddelde brandstofprijzen</td>
+              <td><span class="freq-badge freq-kwartaal">Per kwartaal</span></td>
+              <td>Op basis van CBS-publicaties</td>
+            </tr>
+            <tr>
+              <td>Verzekeringspremies</td>
+              <td><span class="freq-badge freq-kwartaal">Per kwartaal</span></td>
+              <td>Op basis van marktbewegingen</td>
+            </tr>
+            <tr>
+              <td>Mobiliteitsbudget regelgeving</td>
+              <td><span class="freq-badge freq-jaar">Jaarlijks</span></td>
+              <td>Bij wijziging wet- en regelgeving</td>
+            </tr>
+            <tr>
+              <td>Affiliate links & aanbieders</td>
+              <td><span class="freq-badge freq-continu">Continu</span></td>
+              <td>Bij wijziging producten of tarieven</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- WAT WE NIET DOEN -->
+      <div class="section">
+        <h2><span class="icon">🚫</span>Wat we bewust niet doen</h2>
+        <div class="disclaimer">
+          <p>Stuurjij. geeft geen persoonlijk financieel of juridisch advies. We beschrijven wat iets gemiddeld kost of wat de regels zijn, maar jouw situatie kan anders zijn. Voor persoonlijke beslissingen raden we aan een onafhankelijk adviseur te raadplegen.</p>
+        </div>
+        <br>
+        <p>Verder doen we bewust niet aan: gesponsorde content die eruit ziet als redactionele content, vergelijkingen waarbij een aanbieder betaalt voor een hogere plek, en het verkopen van jouw gegevens aan derden.</p>
+      </div>
+
+      <!-- VEELGESTELDE VRAGEN -->
+      <div class="section">
+        <h2><span class="icon">❓</span>Veelgestelde vragen</h2>
+
+        <div class="faq-item">
+          <h3 class="faq-vraag">Is Stuurjij. onafhankelijk?</h3>
+          <p>Ja. Stuurjij. wordt gemaakt door een individu, zonder investeerders of redactieteam van een automerk of verzekeraar. We werken met affiliatepartners voor inkomsten, maar dit heeft geen invloed op welke informatie we geven of hoe we die presenteren. Aanbieders kunnen niet betalen voor een hogere plek in vergelijkingen.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-vraag">Welke bronnen gebruikt Stuurjij. voor zijn cijfers?</h3>
+          <p>Uitsluitend publieke, officiele of breed erkende bronnen: RDW, Belastingdienst, CBS, ANWB, Nibud en overheid.nl/wetten.nl. Zie het overzicht hierboven voor details per bron.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-vraag">Hoe vaak wordt de informatie bijgewerkt?</h3>
+          <p>Wegenbelasting, bijtelling en leaseregels jaarlijks in januari. Brandstofprijzen en verzekeringspremies per kwartaal. Affiliate links continu. Elke pagina toont de laatste update-datum.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-vraag">Geeft Stuurjij. persoonlijk financieel advies?</h3>
+          <p>Nee. We beschrijven gemiddelde kosten en geldende regels, geen advies op maat. Voor persoonlijke beslissingen raden we een onafhankelijk adviseur aan.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-vraag">Wie heeft Stuurjij. gemaakt?</h3>
+          <p>Esther van Vliet, 52 jaar, zonder technische achtergrond, vanuit de wens mobiliteitskosten in Nederland transparanter te maken.</p>
+        </div>
+      </div>
+
+      <!-- WIE STAAT ERACHTER -->
+      <div class="section">
+        <h2><span class="icon">👤</span>Wie staat erachter?</h2>
+        <p>Stuurjij. is gebouwd en wordt bijgehouden door:</p>
+
+        <div class="esther-blok">
+          <div class="esther-avatar">E</div>
+          <div class="esther-text">
+            <p class="esther-name">Esther van Vliet</p>
+            <p>Oprichter van Stuurjij. Ik ben 52 jaar, geen technische achtergrond, en heb dit platform gebouwd omdat ik zelf merkte hoe ondoorzichtig mobiliteitskosten zijn voor gewone mensen. Geen investeerders, geen redactieteam, geen agenda anders dan eerlijke informatie.</p>
+            <p>Vragen over de data? Gebruik het contactformulier op <a href="https://stuurjij.nl/over-stuurjij.html" style="color: var(--gold); text-decoration: none;">Over Stuurjij.</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Stuurjij.</div>
+      <nav class="footer-links">
+        <a href="https://stuurjij.nl/artikelen.html">Artikelen</a>
+        <a href="https://stuurjij.nl/over-stuurjij.html">Over Stuurjij.</a>
+        <a href="https://stuurjij.nl/over-de-data.html">Over de data</a>
+        <a href="https://stuurjij.nl/disclaimer.html">Disclaimer</a>
+      </nav>
+      <p class="footer-copy">Stuurjij. | Onafhankelijk mobiliteitsadvies voor Nederland</p>
+    </div>
+  </footer>
+
+</body>
+</html>
